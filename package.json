@@ -48,6 +48,7 @@
         "@types/react-dom": "^18.0.2",
         "@typescript-eslint/eslint-plugin": "^5.30.6",
         "@typescript-eslint/parser": "^5.30.6",
+        "cz-conventional-changelog": "^3.3.0",
         "eslint": "^8.19.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-import": "^2.26.0",
@@ -70,5 +71,10 @@
             "eslint --cache --fix",
             "git add"
         ]
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
     }
 }
