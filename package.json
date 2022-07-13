@@ -18,9 +18,7 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "checklint": "eslint --ext .js,.tsx --ignore-path .gitignore src",
-        "fixlint": "eslint --fix --ext .js --ext .tsx src",
-        "prettier": "prettier --write .",
+        "lint": "lint-staged",
         "release": "standard-version"
     },
     "eslintConfig": {
@@ -65,16 +63,10 @@
         "prettier": "^2.7.1",
         "standard-version": "^9.5.0"
     },
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm run test && echo \"git commit trigger husky pre-commit hook\""
-        }
-    },
     "lint-staged": {
         "src/**/*.{js,jsx,ts,tsx}": [
             "prettier --write",
-            "eslint --cache --fix",
-            "git add"
+            "eslint --fix"
         ]
     },
     "config": {
