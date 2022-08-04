@@ -1,20 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+/*
+ * @Author: Pacific_D
+ * @Date: 2022-03-29 10:48:44
+ * @LastEditTime: 2022-08-04 20:50:43
+ * @LastEditors: Pacific_D
+ * @Description:
+ * @FilePath: \animated-todo\App.tsx
+ */
+import React, { FC } from "react"
+import AppContainer from "./src/components/app-container"
+import Main from "./src/screens/main-screen"
 
-export default function App() {
+const App: FC = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <AppContainer>
+      <Main />
+    </AppContainer>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
