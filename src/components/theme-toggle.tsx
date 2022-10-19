@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-08-04 20:49:57
  * @LastEditors: Pacific_D
  * @Description:
- * @FilePath: \animated-todo\src\components\theme-toggle.tsx
+ * @FilePath: \todo-native\src\components\theme-toggle.tsx
  */
 import React, { FC } from "react"
 import { Text, HStack, Switch, useColorMode } from "native-base"

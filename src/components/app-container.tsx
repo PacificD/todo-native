@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-08-04 20:40:19
  * @LastEditors: Pacific_D
  * @Description:
- * @FilePath: \animated-todo\src\components\app-container.tsx
+ * @FilePath: \todo-native\src\components\app-container.tsx
  */
 import { NavigationContainer } from "@react-navigation/native"
 import { NativeBaseProvider } from "native-base"

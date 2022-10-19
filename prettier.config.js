@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-08-04 19:26:00
  * @LastEditors: Pacific_D
  * @Description: 
- * @FilePath: \animated-todo\prettier.config.js
+ * @FilePath: \todo-native\prettier.config.js
  */
 const options = {
   arrowParens: 'avoid',

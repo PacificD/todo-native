@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-08-04 19:39:53
  * @LastEditors: Pacific_D
  * @Description: 
- * @FilePath: \animated-todo\babel.config.js
+ * @FilePath: \todo-native\babel.config.js
  */
 module.exports = function (api) {
   api.cache(true);
