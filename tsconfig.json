@@ -14,17 +14,26 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@navigation/*": [
-        "src/navigation/*"
+      "@navigation": [
+        "src/navigation"
       ],
-      "@components/*": [
-        "src/components/*"
+      "@components": [
+        "src/components"
       ],
-      "@screens/*": [
-        "src/screens/*"
+      "@screens": [
+        "src/screens"
       ],
-      "@assets/*": [
-        "assets/*"
+      "@assets": [
+        "src/assets"
+      ],
+      "@types": [
+        "src/types"
+      ],
+      "@store": [
+        "src/store"
+      ],
+      "@utils": [
+        "src/utils"
       ]
     }
   }
