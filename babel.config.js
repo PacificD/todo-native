@@ -1,7 +1,7 @@
 /**
  * @Author: Pacific_D
  * @Date: 2022-03-29 10:48:44
- * @LastEditTime: 2022-10-21 20:15:50
+ * @LastEditTime: 2022-10-23 21:22:24
  * @LastEditors: Pacific_D
  * @Description: 
  * @FilePath: \todo-native\babel.config.js
@@ -13,6 +13,7 @@ module.exports = function (api) {
     plugins: ['react-native-reanimated/plugin',
       ["module-resolver", {
         "alias": {
+          "@conf": './src/conf',
           "@navigation": "./src/navigation",
           "@components": "./src/components",
           "@screens": "./src/screens",

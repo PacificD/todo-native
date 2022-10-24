@@ -1,59 +1,74 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-10-21 20:06:17
- * @LastEditTime: 2022-10-21 20:55:21
+ * @LastEditTime: 2022-10-24 20:19:15
  * @LastEditors: Pacific_D
  * @Description:
  * @FilePath: \todo-native\src\store\todoSlice.ts
  */
-import { createSlice, PayloadAction, SliceCaseReducers } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Todo, TodoList, TodoID } from "@types"
 
-export const todoSlice = createSlice<TodoList, SliceCaseReducers<TodoList>>({
-  name: "todo",
-  initialState: [],
+export const initialTodo = createAsyncThunk(
+  "todoList/initialTodo",
+  async () => {
+    let storage = await AsyncStorage.getItem("todoList")
+    return storage ? JSON.parse(storage) : []
+  }
+)
+
+export const todoSlice = createSlice({
+  name: "todoList",
+  initialState: {
+    entities: [] as TodoList,
+    isLoading: true
+  },
   reducers: {
-    addTodo: (todoList, action: PayloadAction<Todo>) => {
-      if (action.payload.content.trim() === "") return todoList
-      todoList.push(action.payload)
+    addTodo: (state, action: PayloadAction<Todo>) => {
+      state.entities.unshift(action.payload)
       ;(async () => {
-        await AsyncStorage.setItem("todoList", JSON.stringify(todoList))
+        await AsyncStorage.setItem("todoList", JSON.stringify(state.entities))
       })()
     },
-    deleteTodo: (todoList, action: PayloadAction<TodoID>) => {
-      todoList.filter(todo => todo.id !== action.payload)
-      ;(async () => {
-        await AsyncStorage.setItem("todoList", JSON.stringify(todoList))
-      })()
+    deleteTodo: (state, action: PayloadAction<TodoID>) => {
+      state.entities = state.entities.filter(todo => todo.id !== action.payload)
+      //   (async () => {
+      //   await AsyncStorage.setItem("todoList", JSON.stringify(todoList))
+      // })()
     },
-    toggleTodo: (todoList, action: PayloadAction<TodoID>) => {
-      todoList.map(todo => {
+    toggleTodo: (state, action: PayloadAction<TodoID>) => {
+      state.entities.forEach(todo => {
         if (todo.id === action.payload) todo.isDone = !todo.isDone
-        return todo
       })
-      ;(async () => {
-        await AsyncStorage.setItem("todoList", JSON.stringify(todoList))
-      })()
-    },
-    modifyTodo: (
-      todoList,
-      action: PayloadAction<{
-        id: TodoID
-        newContent: string
-      }>
-    ) => {
-      const { id, newContent } = action.payload
-      let idx = todoList.findIndex(todo => todo.id === id)
-      if (idx === -1) return todoList
-      todoList[idx].content = newContent
-      ;(async () => {
-        await AsyncStorage.setItem("todoList", JSON.stringify(todoList))
-      })()
+      //   (async () => {
+      //   await AsyncStorage.setItem("todoList", JSON.stringify(todoList))
+      // })()
     }
+    // modifyTodo: (
+    //   todoList,
+    //   action: PayloadAction<{
+    //     id: TodoID
+    //     newContent: string
+    //   }>
+    // ) => {
+    //   const { id, newContent } = action.payload
+    //   let idx = todoList.findIndex(todo => todo.id === id)
+    //   if (idx === -1) return todoList
+    //   todoList[idx].content = newContent
+    //   ;(async () => {
+    //     await AsyncStorage.setItem("todoList", JSON.stringify(todoList))
+    //   })()
+    // }
+  },
+  extraReducers: builder => {
+    builder.addCase(initialTodo.fulfilled, (state, { payload }) => {
+      state.entities = state.entities.concat(payload)
+      state.isLoading = false
+    })
   }
 })
 
-export const { addTodo, deleteTodo, toggleTodo, modifyTodo } = todoSlice.actions
+export const { addTodo, deleteTodo, toggleTodo } = todoSlice.actions
 
-export default todoSlice
+export default todoSlice.reducer
