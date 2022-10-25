@@ -1,7 +1,7 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-10-21 20:06:17
- * @LastEditTime: 2022-10-24 20:19:15
+ * @LastEditTime: 2022-10-25 18:33:34
  * @LastEditors: Pacific_D
  * @Description:
  * @FilePath: \todo-native\src\store\todoSlice.ts
@@ -33,17 +33,17 @@ export const todoSlice = createSlice({
     },
     deleteTodo: (state, action: PayloadAction<TodoID>) => {
       state.entities = state.entities.filter(todo => todo.id !== action.payload)
-      //   (async () => {
-      //   await AsyncStorage.setItem("todoList", JSON.stringify(todoList))
-      // })()
+      ;(async () => {
+        await AsyncStorage.setItem("todoList", JSON.stringify(state.entities))
+      })()
     },
     toggleTodo: (state, action: PayloadAction<TodoID>) => {
       state.entities.forEach(todo => {
         if (todo.id === action.payload) todo.isDone = !todo.isDone
       })
-      //   (async () => {
-      //   await AsyncStorage.setItem("todoList", JSON.stringify(todoList))
-      // })()
+      ;(async () => {
+        await AsyncStorage.setItem("todoList", JSON.stringify(state.entities))
+      })()
     }
     // modifyTodo: (
     //   todoList,
