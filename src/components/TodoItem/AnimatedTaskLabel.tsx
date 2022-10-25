@@ -1,10 +1,10 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-10-25 18:28:07
- * @LastEditTime: 2022-10-25 18:28:07
+ * @LastEditTime: 2022-10-25 22:35:52
  * @LastEditors: Pacific_D
  * @Description:
- * @FilePath: \todo-native\src\components\TodoItem\animated-task-label.tsx
+ * @FilePath: \todo-native\src\components\TodoItem\AnimatedTaskLabel.tsx
  */
 import React, { useEffect, memo } from "react"
 import { Pressable, Text, HStack, Box } from "native-base"
@@ -84,7 +84,15 @@ const AnimatedTaskLabel = memo((props: Props) => {
   })
 
   return (
-    <Pressable onPress={onPress}>
+    <Pressable
+      onPress={onPress}
+      width="full"
+      height="full"
+      display="flex"
+      flexDirection="row"
+      alignItems="center"
+      justifyContent="flex-start"
+    >
       <AnimatedHStack alignItems="center" style={[hstackAnimatedStyles]}>
         <AnimatedText
           fontSize={19}

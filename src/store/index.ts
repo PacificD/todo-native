@@ -1,7 +1,7 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-10-21 20:00:49
- * @LastEditTime: 2022-10-24 20:00:46
+ * @LastEditTime: 2022-10-25 21:49:30
  * @LastEditors: Pacific_D
  * @Description:
  * @FilePath: \todo-native\src\store\index.ts
@@ -12,7 +12,9 @@ import todoReducer, {
   addTodo,
   deleteTodo,
   toggleTodo,
-  initialTodo
+  initialTodo,
+  modifyTodo,
+  cleatTodoList
 } from "./todoSlice"
 
 const store = configureStore({
@@ -27,6 +29,13 @@ type AppDispatch = typeof store.dispatch
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 
-export { addTodo, deleteTodo, toggleTodo, initialTodo }
+export {
+  addTodo,
+  deleteTodo,
+  toggleTodo,
+  initialTodo,
+  modifyTodo,
+  cleatTodoList
+}
 
 export default store

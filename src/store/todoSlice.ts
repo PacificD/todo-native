@@ -1,7 +1,7 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-10-21 20:06:17
- * @LastEditTime: 2022-10-25 18:33:34
+ * @LastEditTime: 2022-10-25 21:49:04
  * @LastEditors: Pacific_D
  * @Description:
  * @FilePath: \todo-native\src\store\todoSlice.ts
@@ -44,22 +44,28 @@ export const todoSlice = createSlice({
       ;(async () => {
         await AsyncStorage.setItem("todoList", JSON.stringify(state.entities))
       })()
+    },
+    modifyTodo: (
+      state,
+      action: PayloadAction<{
+        id: TodoID
+        newContent: string
+      }>
+    ) => {
+      const { id, newContent } = action.payload
+      state.entities.forEach(todo => {
+        if (todo.id === id) todo.content = newContent
+      })
+      ;(async () => {
+        await AsyncStorage.setItem("todoList", JSON.stringify(state.entities))
+      })()
+    },
+    cleatTodoList: state => {
+      state.entities = []
+      ;(async () => {
+        await AsyncStorage.setItem("todoList", JSON.stringify(state.entities))
+      })()
     }
-    // modifyTodo: (
-    //   todoList,
-    //   action: PayloadAction<{
-    //     id: TodoID
-    //     newContent: string
-    //   }>
-    // ) => {
-    //   const { id, newContent } = action.payload
-    //   let idx = todoList.findIndex(todo => todo.id === id)
-    //   if (idx === -1) return todoList
-    //   todoList[idx].content = newContent
-    //   ;(async () => {
-    //     await AsyncStorage.setItem("todoList", JSON.stringify(todoList))
-    //   })()
-    // }
   },
   extraReducers: builder => {
     builder.addCase(initialTodo.fulfilled, (state, { payload }) => {
@@ -69,6 +75,7 @@ export const todoSlice = createSlice({
   }
 })
 
-export const { addTodo, deleteTodo, toggleTodo } = todoSlice.actions
+export const { addTodo, deleteTodo, toggleTodo, modifyTodo, cleatTodoList } =
+  todoSlice.actions
 
 export default todoSlice.reducer

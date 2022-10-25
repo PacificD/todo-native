@@ -1,13 +1,18 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-10-24 21:00:56
- * @LastEditTime: 2022-10-25 18:36:48
+ * @LastEditTime: 2022-10-25 22:22:48
  * @LastEditors: Pacific_D
  * @Description:
  * @FilePath: \todo-native\src\components\TodoItem\index.tsx
  */
-import { FC, useState } from "react"
-import { Dimensions, Pressable } from "react-native"
+import { FC, useCallback, useState } from "react"
+import {
+  Dimensions,
+  NativeSyntheticEvent,
+  Pressable,
+  TextInputChangeEventData
+} from "react-native"
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
@@ -23,7 +28,7 @@ import Animated, {
 } from "react-native-reanimated"
 import { FontAwesome5 } from "@expo/vector-icons"
 import AnimatedCheckbox from "react-native-checkbox-reanimated"
-import { useColorModeValue, useToken } from "native-base"
+import { useColorModeValue, useToken, Input } from "native-base"
 import { Todo, TodoID } from "@types"
 import { LIST_ITEM_HEIGHT } from "@conf"
 import styles from "./styles"
@@ -36,12 +41,14 @@ interface IProps extends Pick<PanGestureHandlerProps, "simultaneousHandlers"> {
   todo: Todo
   removeTodo: (id: TodoID) => void
   toggleTodoState: (id: TodoID) => void
+  openModifyModal: (todo: Todo) => void
 }
 
 const TodoItem: FC<IProps> = ({
   todo,
   removeTodo,
   toggleTodoState,
+  openModifyModal,
   simultaneousHandlers
 }) => {
   const translateX = useSharedValue(0),
@@ -54,7 +61,6 @@ const TodoItem: FC<IProps> = ({
       setChecked(prev => !prev)
       toggleTodoState(todo.id)
     },
-    onPressLabel = () => {},
     activeTextColor = useToken(
       "colors",
       useColorModeValue("darkText", "lightText")
@@ -134,14 +140,6 @@ const TodoItem: FC<IProps> = ({
             }
           ]}
         >
-          {/* <LottieView
-              autoPlay={false}
-              ref={animation}
-              style={{
-                height: 160
-              }}
-              source={CHECKBOX_ANIMATION}
-            /> */}
           <Pressable
             onPress={handleCheckboxPress}
             style={{
@@ -161,9 +159,9 @@ const TodoItem: FC<IProps> = ({
             textColor={activeTextColor}
             inactiveTextColor={doneTextColor}
             strikethrough={todo.isDone}
-            onPress={onPressLabel}
+            onPress={() => openModifyModal(todo)}
           >
-            {todo.id}
+            {todo.content}
           </AnimatedTaskLabel>
         </Animated.View>
       </PanGestureHandler>

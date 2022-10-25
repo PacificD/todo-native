@@ -1,7 +1,7 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-10-19 23:01:56
- * @LastEditTime: 2022-10-23 21:28:20
+ * @LastEditTime: 2022-10-25 21:51:36
  * @LastEditors: Pacific_D
  * @Description:
  * @FilePath: \todo-native\src\components\Sidebar.tsx
@@ -22,10 +22,12 @@ import { Feather } from "@expo/vector-icons"
 import { USER, AVATAR_URI } from "@conf"
 import ThemeToggle from "./ThemeToggle"
 import MenuButton from "./MenuButton"
+import { useAppDispatch, cleatTodoList } from "@store"
 
 const Sidebar = (props: DrawerContentComponentProps) => {
-  const { state, navigation } = props
-  const currentRoute = state.routeNames[state.index]
+  const { state, navigation } = props,
+    currentRoute = state.routeNames[state.index],
+    dispatch = useAppDispatch()
 
   const handlePressBackButton = useCallback(() => {
       navigation.closeDrawer()
@@ -35,7 +37,8 @@ const Sidebar = (props: DrawerContentComponentProps) => {
         navigation.navigate(screen)
       },
       [navigation]
-    )
+    ),
+    handlePressClearButton = useCallback(() => dispatch(cleatTodoList()), [])
 
   return (
     <AnimatedColorBox
